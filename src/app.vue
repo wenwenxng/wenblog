@@ -47,6 +47,7 @@
 <style scoped lang="css">
     .app-conteiner{
         padding-top: 40px;
+        padding-bottom: 50px;
         overflow-x: hidden;
     }
     .mui-bar{
