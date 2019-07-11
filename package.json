@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
-    "devS": "webpack-dev-server --open --port 3000 --contentBase src --hot",
+    "devS": "webpack-dev-server --open --port 3000 --contentBase src --hot --host",
     "zhushi": "json不能写注释"
   },
   "keywords": [],
@@ -30,13 +30,17 @@
     "webpack-dev-server": "^3.7.2"
   },
   "dependencies": {
+    "axios": "^0.19.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
+    "babel-plugin-transform-remove-strict-mode": "0.0.2",
     "bootstrap": "^3.3.7",
     "html-webpack-plugin": "^3.2.0",
     "mint-ui": "^2.2.13",
     "moment": "^2.24.0",
+    "photoswipe": "^4.1.3",
     "vue": "^2.6.10",
+    "vue-preview": "^1.1.3",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.7",
     "webpack-cli": "^3.3.5"

@@ -4,33 +4,33 @@
         <mt-header fixed title="wenblog"></mt-header>
         <!--中间路由 router-view区域 -->
         <transition>
-            <router-view></router-view>
+            <router-view class="main-conteiner"></router-view>
         </transition>
         <!--底部 tabbar 区域 -->
         <nav class="mui-bar mui-bar-tab">
-            <router-link class="mui-tab-item" to="/home">
+            <router-link class="mui-tab-item-wen" to="/home">
                 <span class="mui-icon mui-icon-home"></span>
                 <span class="mui-tab-label">首页</span>
             </router-link>
-            <router-link class="mui-tab-item" to="/member">
+            <router-link class="mui-tab-item-wen" to="/member">
                 <span class="mui-icon mui-icon-contact"></span>
                 <span class="mui-tab-label">会员</span>
             </router-link>
-            <router-link class="mui-tab-item" to="/cart">
+            <router-link class="mui-tab-item-wen" to="/cart">
                 <span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge">9</span></span>
                 <span class="mui-tab-label">购物车</span>
             </router-link>
-            <router-link class="mui-tab-item" to="/search">
+            <router-link class="mui-tab-item-wen" to="/search">
                 <span class="mui-icon mui-icon-search" ></span>
                 <span class="mui-tab-label">搜索</span>
             </router-link>
         </nav>
 
-
     </div>
 </template>
 
 <script>
+
     export default {
         name: "app",
         data(){
@@ -41,14 +41,23 @@
         methods:{
 
         },
+        created(){
+
+
+        }
     }
 </script>
 
-<style scoped lang="css">
+<style scoped lang="less">
+    .mint-header{
+        z-index:99;
+    }
     .app-conteiner{
         padding-top: 40px;
         padding-bottom: 50px;
-        overflow-x: hidden;
+    }
+    .main-conteiner{
+        overflow-x:hidden;
     }
     .mui-bar{
         box-shadow: 0 0 2px rgba(0,0,0,.2);
@@ -65,5 +74,48 @@
     .v-enter-active,
     .v-leave-active{
         transition:all 0.5s ease
+    }
+
+    /*改类名,解决tabbar无法点击切换的问题*/
+    .mui-bar-tab .mui-tab-item-wen
+    {
+        display: table-cell;
+        overflow: hidden;
+        z-index:10;
+        width: 1%;
+        height: 50px;
+
+        text-align: center;
+        vertical-align: middle;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        color: #929292;
+    }
+    .mui-bar-tab .mui-tab-item-wen.mui-active
+    {
+        color: #007aff;
+    }
+    .mui-bar-tab .mui-tab-item-wen .mui-icon
+    {
+        top: 3px;
+
+        width: 24px;
+        height: 24px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .mui-bar-tab .mui-tab-item-wen .mui-icon ~ .mui-tab-label
+    {
+        font-size: 11px;
+
+        display: block;
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+    }
+    .mui-bar-tab .mui-tab-item-wen .mui-icon:active
+    {
+        background: none;
     }
 </style>

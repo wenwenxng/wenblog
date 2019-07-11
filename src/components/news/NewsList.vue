@@ -20,7 +20,6 @@
 </template>
 
 <script>
-    var api = 'http://localhost:5000'
     export default {
         name: "NewsList",
         data(){
@@ -30,20 +29,18 @@
         },
         methods:{
             getNewsList(){
-                this.$http.get('product/queryProduct?page=1&pageSize=8').then(function(data){
+                this.$axios.get('product/queryProduct?page=1&pageSize=8').then((res) => {
 
-                    if (data.body.error){
+                    if (res.data.error){
                         return toast("获取新闻列表失败")
                     }
-                    console.log(data.body.data)
-                    data.body.data.forEach(function(item){
-                        if (item.pic.length){
-                            item.pic[0].picAddr = api+item.pic[0].picAddr
-                        }else{
-                            item.pic = [{picAddr:api+'/m/images/none.jpg'}]
+                    console.log(res.data.data)
+                    res.data.data.forEach(function(item){
+                        if (!item.pic.length){
+                            item.pic =[{picAddr:'/images/static/detail6.jpg'}]
                         }
                     })
-                    this.newslist = data.body.data
+                    this.newslist = res.data.data
 
                 })
             }

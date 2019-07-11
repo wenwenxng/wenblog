@@ -17,7 +17,6 @@
 </template>
 
 <script>
-    var api = 'http://localhost:5000'
 
     import comment from '../subcomponents/comment.vue'
     export default {
@@ -30,18 +29,16 @@
         },
         methods:{
             getNewsInfo(){
-                this.$http.get('product/queryProductDetail',{params:{id:this.id}}).then(function(data){
+                this.$axios.get('product/queryProductDetail',{params:{id:this.id}}).then((res) => {
 
-                    if (data.body.error){
+                    if (res.data.error){
                         return toast("获取新闻详情失败")
                     }
-                    if (data.body.pic.length){
-                        data.body.pic[0].picAddr = api+data.body.pic[0].picAddr
-                    }else{
-                        data.body.pic = [{picAddr:api+'/m/images/none.jpg'}]
+                    if (!res.data.pic.length){
+                        res.data.pic = [{picAddr:'/images/static/detail6.jpg'}]
                     }
 
-                    this.newsinfo=data.body
+                    this.newsinfo=res.data
                 })
             }
         },
