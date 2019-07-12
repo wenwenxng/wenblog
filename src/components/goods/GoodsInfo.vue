@@ -92,7 +92,6 @@
                             return Toast('获取数据失败')
                         }
                         this.goodsDetail = res.data
-                        console.log(this.goodsDetail);
                         res.data.pic.forEach(t =>{
                             this.lunbotuList.push({pic:[{picAddr:t.picAddr}],id:t.id})
                         })
@@ -108,7 +107,26 @@
             },
             addToCart(){
                 //添加到购物车
-                this.ballFlag = !this.ballFlag
+
+                //由于numbox不严谨,就这里再判断一下
+                if (this.selectedCount > this.goodsDetail.num){
+                    this.selectedCount = this.goodsDetail.num
+                    return Toast('超出最大范围')
+                }
+                this.loginAxiosPost('/cart/addCart',
+                    {
+                    productId:this.goodsDetail.id,
+                    num:this.selectedCount,
+                    size:40
+                     },
+                    (res) => {
+
+                        this.ballFlag = !this.ballFlag
+
+                        this.$store.commit('updateCart',this)
+                })
+
+
             },
             beforeEnter(el){
                 el.style.transform = 'translate(0,0)'

@@ -17,7 +17,7 @@
                 <span class="mui-tab-label">会员</span>
             </router-link>
             <router-link class="mui-tab-item-wen" to="/cart">
-                <span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge" id="badge">9</span></span>
+                <span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge" id="badge" v-show="$store.state.car.length">{{ $store.getters.getAllCount}}</span></span>
                 <span class="mui-tab-label">购物车</span>
             </router-link>
             <router-link class="mui-tab-item-wen" to="/search">
@@ -42,8 +42,12 @@
 
         },
         created(){
-
-
+            this.$axios.get('/cart/queryCart').then(res=>{
+                if (res.data.error === 400){
+                    return
+                }
+                this.$store.commit('initCart',res.data)
+            })
         }
     }
 </script>

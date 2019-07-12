@@ -1,7 +1,7 @@
 <template>
     <!--我们不知道什么时候能拿到max值,但是总有一刻能拿到-->
     <!--我们可以使用watch属性监听,来箭筒父组件传递过来的max值,不管watch会触发几次,但是,最后一次,肯定是一个合法的max数值-->
-    <div class="mui-numbox" data-numbox-min='1' data-numbox-max='40'>
+    <div class="mui-numbox" data-numbox-min='1'>
         <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
         <input id="test" class="mui-input-numbox" type="number" value="1" ref="numbox" @change="handleNumChange"/>
         <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
