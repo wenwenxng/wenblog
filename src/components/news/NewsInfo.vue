@@ -12,7 +12,7 @@
         </div>
 
         <!--评论区子组件-->
-        <comment-box :id="this.id"></comment-box>
+        <comment-box :id="this.id" bankuaiId="1"></comment-box>
     </div>
 </template>
 
@@ -32,7 +32,7 @@
                 this.$axios.get('product/queryProductDetail',{params:{id:this.id}}).then((res) => {
 
                     if (res.data.error){
-                        return toast("获取新闻详情失败")
+                        return Toast("获取新闻详情失败")
                     }
                     if (!res.data.pic.length){
                         res.data.pic = [{picAddr:'/images/static/detail6.jpg'}]

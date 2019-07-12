@@ -17,7 +17,7 @@
             </div>
         </div>
         <!--放置一个现成的评论子组件-->
-        <comment :id="photoinfo.rows[0].brandId"></comment>
+        <comment :id="photoinfo.rows[0].brandId" bankuaiId="2"></comment>
     </div>
 </template>
 

@@ -32,16 +32,16 @@
                 cmt:''
             }
         },
-        props:['id'],
+        props:['id','bankuaiId'],
         methods:{
-            getComments(){
-                this.$axios.get('comments/queryComments?page='+this.pageIndex+'&pageSize=5').then((res) => {
+            getComments(flag){
+                this.$axios.get('comments/queryComments',{params: {page:this.pageIndex,pageSize:5,bankuaiId: this.bankuaiId,detailId:this.id}}).then((res) => {
 
                     if (res.data.error){
                         return Toast("获取评论失败")
                     }
 
-                    if (!res.data.length) {
+                    if (!res.data.length && flag) {
                         return Toast({
                             message: '无更多评论',
                             position: 'middle',
@@ -60,14 +60,14 @@
             },
             getMore(){
                 this.pageIndex++
-                this.getComments()
+                this.getComments(true)//第二次获取
             },
             postComment(){
                 //发表评论
                 if (this.cmt.trim().length === 0){
                     return Toast('评论不能为空')
                 }
-                this.$axios.post('comments/addComment',{ content:this.cmt.trim()}).then((res) => {
+                this.$axios.post('comments/addComment',{ content:this.cmt.trim(), bankuaiId:this.bankuaiId, detailId:this.id}).then((res) => {
                     console.log(res)
                     if (res.data.success !== true){
                         return Toast('评论失败')
