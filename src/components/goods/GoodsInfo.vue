@@ -144,7 +144,6 @@
 
                 const xDist = badgePostion.left - ballPostition.left
                 const yDist = badgePostion.top - ballPostition.top
-
                 el.offsetWidth
                 el.style.transition = 'all 0.5s cubic-bezier(0.4, 0.3, 1, 0.68)'
                 el.style.transform = `translate(${xDist}px,${yDist}px)`

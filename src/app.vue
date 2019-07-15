@@ -1,7 +1,11 @@
 <template>
     <div class="app-conteiner">
         <!--顶部 header区域 -->
-        <mt-header fixed title="wenblog"></mt-header>
+        <mt-header fixed title="wenblog">
+            <span slot="left" @click="goBack" v-show="flag">
+                <mt-button icon="back">返回</mt-button>
+            </span>
+        </mt-header>
         <!--中间路由 router-view区域 -->
         <transition>
             <router-view class="main-conteiner"></router-view>
@@ -35,11 +39,18 @@
         name: "app",
         data(){
             return{
-
+                flag:false
             }
         },
         methods:{
-
+            goBack(){
+                this.$router.go(-1)
+            }
+        },
+        watch:{
+          '$route.path':function(newVal){
+              this.flag = newVal === '/home'? false : true;
+          }
         },
         created(){
             this.$axios.get('/cart/queryCart').then(res=>{
@@ -48,6 +59,7 @@
                 }
                 this.$store.commit('initCart',res.data)
             })
+            this.flag = this.$route.path === '/home'? false : true;
         }
     }
 </script>

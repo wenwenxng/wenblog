@@ -13,34 +13,34 @@ var store = new Vuex.Store({
 
     },
     mutations:{//this.$store.commit('',参数)
-        addToCart(state,goodsinfo){
-            //1.如果购物车中,之前已经有这个商品了
-            //2.如果没有,则直接把商品数据,push到car中即可
-            // var flag = state.car.some(t => {
-            //     if (t.productId === goodsinfo.productId){
-            //         t.num += parseInt(goodsinfo.num)
-            //         return true
-            //     }
-            // })
-            // if (!flag){
-            //     state.car.push(goodsinfo)
-            // }
-            //数据库原因,暂不实现这功能
-            state.car.push(goodsinfo)
-        },
         initCart(state,cartList){
-
+            cartList.forEach(item => {
+                item.selected = false;
+            })
             state.car = cartList
         },
         updateCart(state,that){
             //添加后update
             that.loginAxiosGet('/cart/queryCart',function(res){
-                state.car =  res.data
+                var maxId =  state.car.length?state.car[state.car.length]:0;
+                res.data.forEach(item => {
+                    if (item.id > maxId){
+                        item.selected = false;
+                        staate.car.push(item)
+                    }
+                })
             })
         },
         numChangeUpdateCart(state,info){
+            console.log(info)
             var updateGoods = state.car.find(item => item.id === info.id)
             updateGoods.num = info.num
+        },
+        removeFromCar(state,index){
+            state.car.splice(index,1)
+        },
+        updateGoodsSelected(state,info){
+            state.car[info.index].selected = info.val
         }
     },
     getters:{//this.$store.getters.****
@@ -53,6 +53,22 @@ var store = new Vuex.Store({
         },
         getCar(state){
             return state.car
+        },
+        getGoodsSelected(state){
+            return state.car
+        },
+        getGoodsCountAndAmount(state){
+            var o = {
+                num:0,
+                amount:0
+            }
+            state.car.forEach(item => {
+                if (item.selected){
+                    o.num += item.num;
+                    o.amount += item.price * item.num
+                }
+            })
+            return o
         }
     }
 })

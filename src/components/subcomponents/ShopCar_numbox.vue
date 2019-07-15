@@ -31,10 +31,10 @@
         },
         methods:{
             handleNumChange(){
-                var num = this.$refs.numbox.value
+                var num = parseInt(this.$refs.numbox.value)
                     //每当数量改变,立即覆盖store并都上传到服务器
                     this.loginAxiosPost('/cart/updateCart',{id:this.goodsid,num,size:this.size},res =>{
-                        if (res.data.success) return
+                        if (res.data.success !== true) return
                         this.$store.commit('numChangeUpdateCart',{id:this.goodsid,num})
                     })
 
